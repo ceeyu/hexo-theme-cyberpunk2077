@@ -2,7 +2,8 @@
 
 > 🎮 A Cyberpunk 2077 style theme for Hexo with stunning neon effects, glitch animations, and futuristic design.
 
-![Theme Preview](screenshots/preview.png)
+<img width="1024" height="825" alt="image" src="https://github.com/user-attachments/assets/3f826373-fff4-43b7-9e34-7c2e89384bd9" />
+
 
 [English](#english) | [繁體中文](#繁體中文)
 
