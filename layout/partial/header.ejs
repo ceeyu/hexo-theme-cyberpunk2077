@@ -1,0 +1,20 @@
+<header class="site-header cyber-header">
+  <div class="container">
+    <div class="header-content">
+      <a href="<%- url_for('/') %>" class="site-logo">
+        <span class="logo-bracket">[</span>
+        <span class="logo-text"><%= config.title %></span>
+        <span class="logo-bracket">]</span>
+      </a>
+      <nav class="site-nav">
+        <% for (let name in theme.menu) { %>
+          <a href="<%- url_for(theme.menu[name]) %>" class="nav-link">
+            <span class="nav-text"><%= name %></span>
+            <span class="nav-line"></span>
+          </a>
+        <% } %>
+      </nav>
+    </div>
+  </div>
+  <div class="header-line"></div>
+</header>

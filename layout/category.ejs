@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="<%= config.language || 'zh-TW' %>">
+<%- partial('partial/head') %>
+<body>
+  <%- partial('partial/header') %>
+  
+  <main class="site-main">
+    <div class="container">
+      <!-- 分類標題 -->
+      <header class="category-header">
+        <a href="/" class="back-link">← 返回首頁</a>
+        <h1 class="category-title">
+          <% if (page.category === 'C++ 基礎教學') { %>💻<% } %>
+          <% if (page.category === 'Flutter 30天') { %>📱<% } %>
+          <% if (page.category === '雲端資安') { %>🔐<% } %>
+          <%= page.category %>
+        </h1>
+        <p class="category-count">共 <%= page.posts.length %> 篇文章</p>
+      </header>
+      
+      <!-- 文章列表 -->
+      <div class="category-posts">
+        <% page.posts.sort('date', 1).forEach(function(post, index) { 
+          // 從標題中提取 Day 數字
+          var dayMatch = post.title.match(/day\s*(\d+)/i);
+          var dayNum = dayMatch ? dayMatch[1] : (index + 1);
+        %>
+          <article class="category-post-item">
+            <span class="post-number">Day <%= dayNum %></span>
+            <a href="<%- url_for(post.path) %>" class="post-info">
+              <h2 class="post-title"><%= post.title %></h2>
+              <time class="post-date"><%= post.date.format('YYYY-MM-DD') %></time>
+            </a>
+          </article>
+        <% }); %>
+      </div>
+      
+      <% if (page.total > 1) { %>
+      <nav class="pagination">
+        <%- paginator({
+          prev_text: '← 上一頁',
+          next_text: '下一頁 →',
+          mid_size: 1
+        }) %>
+      </nav>
+      <% } %>
+    </div>
+  </main>
+  
+  <%- partial('partial/footer') %>
+</body>
+</html>

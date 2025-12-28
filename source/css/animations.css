@@ -1,0 +1,333 @@
+/* ===== 動畫效果 - 輕量級實現 ===== */
+
+/* 基礎動畫變數 */
+:root {
+  --animation-duration: 0.6s;
+  --animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-delay: 0.1s;
+}
+
+/* ===== 淡入動畫 ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ===== 縮放動畫 ===== */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===== 滑動動畫 ===== */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== 打字機效果 ===== */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+/* ===== 脈衝效果 ===== */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* ===== 搖擺效果 ===== */
+@keyframes swing {
+  20% { transform: rotate(15deg); }
+  40% { transform: rotate(-10deg); }
+  60% { transform: rotate(5deg); }
+  80% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* ===== 應用動畫類 ===== */
+.animate-fade-in {
+  animation: fadeIn var(--animation-duration) var(--animation-easing) both;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp var(--animation-duration) var(--animation-easing) both;
+}
+
+.animate-fade-in-left {
+  animation: fadeInLeft var(--animation-duration) var(--animation-easing) both;
+}
+
+.animate-fade-in-right {
+  animation: fadeInRight var(--animation-duration) var(--animation-easing) both;
+}
+
+.animate-scale-in {
+  animation: scaleIn var(--animation-duration) var(--animation-easing) both;
+}
+
+.animate-slide-in-up {
+  animation: slideInUp var(--animation-duration) var(--animation-easing) both;
+}
+
+/* ===== 延遲類 ===== */
+.delay-1 { animation-delay: calc(var(--animation-delay) * 1); }
+.delay-2 { animation-delay: calc(var(--animation-delay) * 2); }
+.delay-3 { animation-delay: calc(var(--animation-delay) * 3); }
+.delay-4 { animation-delay: calc(var(--animation-delay) * 4); }
+.delay-5 { animation-delay: calc(var(--animation-delay) * 5); }
+
+/* ===== 滾動觸發動畫 ===== */
+/* 預設可見，JS 載入後才啟用動畫 */
+.scroll-animate {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s var(--animation-easing),
+              transform 0.6s var(--animation-easing);
+}
+
+/* JS 啟用動畫後的初始狀態 */
+.js-enabled .scroll-animate {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.js-enabled .scroll-animate.is-visible,
+.scroll-animate.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== 懸停效果 ===== */
+.hover-lift {
+  transition: transform 0.3s var(--animation-easing),
+              box-shadow 0.3s var(--animation-easing);
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.hover-scale {
+  transition: transform 0.3s var(--animation-easing);
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.hover-glow::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.hover-glow:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* ===== 文字動畫 ===== */
+.text-gradient {
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    #00a8ff,
+    var(--primary-color)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+}
+
+/* ===== 載入動畫 ===== */
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== 進度條動畫 ===== */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    #00a8ff
+  );
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-out;
+  z-index: 9999;
+}
+
+/* ===== 卡片動畫 ===== */
+/* 預設可見，JS 載入後才啟用動畫 */
+.card-animate {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity 0.5s var(--animation-easing),
+              transform 0.5s var(--animation-easing);
+}
+
+/* JS 啟用動畫後的初始狀態 */
+.js-enabled .card-animate {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+}
+
+.js-enabled .card-animate.is-visible,
+.card-animate.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ===== 波紋效果 ===== */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.ripple:active::after {
+  width: 200px;
+  height: 200px;
+}
+
+/* ===== 視差效果 ===== */
+.parallax {
+  transition: transform 0.5s ease-out;
+}
+
+/* ===== 平滑滾動 ===== */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ===== 減少動畫（尊重用戶偏好）===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ===== 性能優化 ===== */
+.will-animate {
+  will-change: transform, opacity;
+}
+
+.gpu-accelerate {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}

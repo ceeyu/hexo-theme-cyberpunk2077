@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="<%= config.language || 'zh-TW' %>">
+<%- partial('partial/head') %>
+<body>
+  <%- partial('partial/header') %>
+  
+  <main class="site-main">
+    <div class="container">
+      <article class="page-content">
+        <h1 class="page-title"><%= page.title %></h1>
+        <div class="page-body">
+          <%- page.content %>
+        </div>
+      </article>
+    </div>
+  </main>
+  
+  <%- partial('partial/footer') %>
+</body>
+</html>

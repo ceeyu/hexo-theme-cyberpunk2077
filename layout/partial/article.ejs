@@ -1,0 +1,69 @@
+<article class="post hover-lift">
+  <header class="post-header">
+    <h2 class="post-title">
+      <% if (post.link) { %>
+        <a href="<%- url_for(post.link) %>" target="_blank"><%= post.title %></a>
+      <% } else { %>
+        <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+      <% } %>
+    </h2>
+    <div class="post-meta">
+      <time datetime="<%= post.date.toISOString() %>">
+        <%= post.date.format('YYYY-MM-DD') %>
+      </time>
+      <% if (post.categories && post.categories.length) { %>
+        <span class="separator">•</span>
+        <% post.categories.forEach(function(cat) { %>
+          <a href="<%- url_for(cat.path) %>"><%= cat.name %></a>
+        <% }); %>
+      <% } %>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <% if (index) { %>
+      <% 
+        // 生成摘要
+        let excerpt = '';
+        
+        if (post.excerpt) {
+          excerpt = post.excerpt;
+        } else if (post.content) {
+          // 移除 HTML 標籤和多餘空白
+          const plainText = post.content
+            .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+            .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
+            .replace(/<[^>]+>/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+          
+          if (plainText.length > 0) {
+            excerpt = plainText.substring(0, 200);
+            if (plainText.length > 200) {
+              excerpt += '...';
+            }
+          }
+        }
+        
+        // 如果還是沒有摘要，使用默認文字
+        if (!excerpt || excerpt.length < 10) {
+          excerpt = '點擊查看完整內容';
+        }
+      %>
+      <p><%= excerpt %></p>
+      <a href="<%- url_for(post.path) %>" class="read-more">繼續閱讀 →</a>
+    <% } else { %>
+      <%- post.content %>
+    <% } %>
+  </div>
+  
+  <% if (!index && post.tags && post.tags.length) { %>
+  <footer class="post-footer">
+    <div class="post-tags">
+      <% post.tags.forEach(function(tag) { %>
+        <a href="<%- url_for(tag.path) %>">#<%= tag.name %></a>
+      <% }); %>
+    </div>
+  </footer>
+  <% } %>
+</article>

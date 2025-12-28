@@ -1,0 +1,1093 @@
+/* ===== Cyberpunk 2077 風格 - 絲滑動畫版 ===== */
+
+:root {
+  --cyber-cyan: #00f0ff;
+  --cyber-pink: #ff2a6d;
+  --cyber-purple: #bd00ff;
+  --cyber-yellow: #f9f002;
+  --cyber-blue: #0a0e27;
+  --cyber-dark: #050816;
+  --cyber-darker: #020408;
+  --cyber-gray: #1a1f3c;
+  --cyber-light: #e0e6ff;
+  
+  --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.5), 0 0 40px rgba(0, 240, 255, 0.3);
+  --glow-pink: 0 0 20px rgba(255, 42, 109, 0.5), 0 0 40px rgba(255, 42, 109, 0.3);
+  --glow-purple: 0 0 20px rgba(189, 0, 255, 0.5), 0 0 40px rgba(189, 0, 255, 0.3);
+  
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ===== 基礎樣式 ===== */
+.cyber-body {
+  background: var(--cyber-darker);
+  color: var(--cyber-light);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ===== 載入動畫 ===== */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  background: var(--cyber-darker);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  transition: opacity 0.5s var(--ease-out-expo), visibility 0.5s;
+}
+
+.page-loader.loaded {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-content {
+  text-align: center;
+}
+
+.loader-glitch {
+  font-family: 'Orbitron', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--cyber-cyan);
+  text-shadow: var(--glow-cyan);
+  letter-spacing: 0.5em;
+  animation: glitchText 2s infinite;
+}
+
+.loader-bar {
+  width: 200px;
+  height: 3px;
+  background: var(--cyber-gray);
+  margin: 20px auto;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.loader-progress {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--cyber-cyan), var(--cyber-pink));
+  box-shadow: var(--glow-cyan);
+  transition: width 0.3s var(--ease-out-expo);
+}
+
+.loader-percent {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.875rem;
+  color: var(--cyber-cyan);
+  opacity: 0.7;
+}
+
+@keyframes glitchText {
+  0%, 90%, 100% { opacity: 1; transform: translateX(0); }
+  92% { opacity: 0.8; transform: translateX(-2px); }
+  94% { opacity: 0.8; transform: translateX(2px); }
+  96% { opacity: 0.9; transform: translateX(-1px); }
+}
+
+/* ===== 背景效果 ===== */
+.cyber-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cyber-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+}
+
+.cyber-scanline {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+  opacity: 0.3;
+}
+
+#particle-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ===== 主內容區 ===== */
+.site-main {
+  position: relative;
+  z-index: 1;
+  padding: 2rem 0 4rem;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ===== Hero 區域 ===== */
+.hero-section {
+  text-align: center;
+  padding: 6rem 0 5rem;
+  opacity: 0;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== Cyberpunk 2077 風格 Logo 動畫 ===== */
+.cyber-logo {
+  position: relative;
+  margin-bottom: 3rem;
+}
+
+/* 主標題容器 */
+.logo-main {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1rem;
+  transform: skewX(-8deg);
+}
+
+/* Logo 層 - 共用樣式 - Cyberpunk 2077 風格 */
+.logo-layer {
+  font-family: 'Teko', 'Audiowide', sans-serif;
+  font-size: clamp(4rem, 18vw, 9rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 0.85;
+  white-space: nowrap;
+  text-transform: uppercase;
+  font-style: italic;
+}
+
+/* 青色主層 - 使用純色 + 發光效果 */
+.logo-cyan {
+  position: relative;
+  color: #00f0ff;
+  text-shadow: 
+    0 0 10px #00f0ff,
+    0 0 20px #00f0ff,
+    0 0 40px rgba(0, 240, 255, 0.5),
+    0 0 80px rgba(0, 240, 255, 0.3);
+  z-index: 2;
+}
+
+/* 粉色 Glitch 層 */
+.logo-pink {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #ff2a6d;
+  text-shadow: 
+    0 0 10px #ff2a6d,
+    0 0 20px #ff2a6d;
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 單個字符 */
+.logo-char {
+  display: inline-block;
+}
+
+/* 副標題區塊 - Cyberpunk 風格 */
+.logo-sub {
+  position: relative;
+  display: inline-block;
+  padding: 0.5rem 2rem;
+  margin-top: 0.5rem;
+  transform: skewX(-8deg);
+  /* 確保初始可見 */
+  opacity: 1;
+}
+
+.sub-bg {
+  position: absolute;
+  inset: 0;
+  /* 半透明科技感背景 */
+  background: linear-gradient(
+    90deg,
+    rgba(0, 240, 255, 0.08),
+    rgba(124, 255, 0, 0.05),
+    rgba(0, 240, 255, 0.08)
+  );
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  box-shadow: 
+    0 0 15px rgba(0, 240, 255, 0.2),
+    0 0 30px rgba(124, 255, 0, 0.1),
+    inset 0 0 20px rgba(0, 240, 255, 0.03);
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 1;
+  /* 切角效果 */
+  clip-path: polygon(2% 0, 100% 0, 98% 100%, 0% 100%);
+}
+
+/* 掃描線動畫 */
+.sub-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(124, 255, 0, 0.3),
+    rgba(0, 240, 255, 0.2),
+    transparent
+  );
+  animation: scanLine 2.5s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+
+@keyframes scanLine {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* 副標題文字 - 使用純色避免 background-clip 問題 */
+.sub-text {
+  position: relative;
+  z-index: 2;
+  font-family: 'Teko', 'Audiowide', sans-serif;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  /* 科技綠色 + 發光效果 */
+  color: #7cff00;
+  text-shadow: 
+    0 0 8px rgba(124, 255, 0, 0.9),
+    0 0 16px rgba(124, 255, 0, 0.6),
+    0 0 32px rgba(0, 240, 255, 0.4);
+  text-transform: uppercase;
+  font-style: italic;
+  /* 確保文字可見 */
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 英文副標題樣式 */
+.sub-text-en {
+  letter-spacing: 0.1em;
+  font-size: clamp(1.3rem, 4vw, 2.2rem);
+}
+
+.sub-char {
+  display: inline-block;
+}
+
+/* 裝飾元素 */
+.logo-decor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.decor-line {
+  position: absolute;
+  top: 30%;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--cyber-cyan), transparent);
+  transform: scaleX(0);
+}
+
+.decor-line.left {
+  right: 100%;
+  margin-right: 20px;
+  transform-origin: right;
+}
+
+.decor-line.right {
+  left: 100%;
+  margin-left: 20px;
+  background: linear-gradient(-90deg, var(--cyber-cyan), transparent);
+  transform-origin: left;
+}
+
+.decor-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--cyber-cyan);
+  border-radius: 50%;
+  box-shadow: var(--glow-cyan);
+  opacity: 0;
+}
+
+.decor-dot.dot-1 {
+  top: 20%;
+  right: 100%;
+  margin-right: 110px;
+}
+
+.decor-dot.dot-2 {
+  top: 20%;
+  left: 100%;
+  margin-left: 110px;
+}
+
+/* 描述文字 */
+.hero-desc {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  color: rgba(224, 230, 255, 0.7);
+  margin-bottom: 3rem;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.desc-bracket {
+  color: var(--cyber-cyan);
+  font-weight: 700;
+}
+
+.desc-text {
+  margin: 0 8px;
+}
+
+.hero-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.stat-item {
+  text-align: center;
+  opacity: 1;
+}
+
+.stat-number {
+  display: block;
+  font-family: 'Orbitron', monospace;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--cyber-cyan);
+  text-shadow: var(--glow-cyan);
+  line-height: 1;
+  opacity: 1;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: rgba(224, 230, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 4px;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(180deg, transparent, var(--cyber-cyan), transparent);
+  opacity: 1;
+}
+
+/* ===== Section 標題 ===== */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyber-cyan), transparent);
+}
+
+.section-title {
+  font-family: 'Orbitron', 'LXGW WenKai TC', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--cyber-light);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.title-icon {
+  color: var(--cyber-cyan);
+  font-size: 0.75rem;
+}
+
+/* ===== 系列卡片 ===== */
+.series-section {
+  padding: 2rem 0;
+  opacity: 0;
+}
+
+.series-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .series-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .series-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.series-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, rgba(26, 31, 60, 0.8), rgba(10, 14, 39, 0.9));
+  border-radius: 12px;
+  padding: 2rem;
+  text-decoration: none;
+  overflow: hidden;
+  transform: translateY(0);
+  transition: transform 0.4s var(--ease-out-expo);
+  min-height: 280px;
+}
+
+.series-card:hover {
+  transform: translateY(-8px);
+}
+
+.card-glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out-expo);
+}
+
+.series-card:hover .card-glow {
+  opacity: 1;
+}
+
+.series-card[data-card="cpp"] .card-glow {
+  background: radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.15), transparent 60%);
+}
+
+.series-card[data-card="flutter"] .card-glow {
+  background: radial-gradient(circle at 50% 0%, rgba(189, 0, 255, 0.15), transparent 60%);
+}
+
+.series-card[data-card="security"] .card-glow {
+  background: radial-gradient(circle at 50% 0%, rgba(255, 42, 109, 0.15), transparent 60%);
+}
+
+.card-border {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  transition: border-color 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo);
+}
+
+.series-card:hover .card-border {
+  border-color: var(--cyber-cyan);
+  box-shadow: inset 0 0 30px rgba(0, 240, 255, 0.1);
+}
+
+.series-card[data-card="flutter"]:hover .card-border {
+  border-color: var(--cyber-purple);
+  box-shadow: inset 0 0 30px rgba(189, 0, 255, 0.1);
+}
+
+.series-card[data-card="security"]:hover .card-border {
+  border-color: var(--cyber-pink);
+  box-shadow: inset 0 0 30px rgba(255, 42, 109, 0.1);
+}
+
+.card-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: flex-start;  /* 內容靠上對齊 */
+}
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1.25rem;
+  color: var(--cyber-cyan);
+  transition: color 0.3s, transform 0.4s var(--ease-out-expo);
+}
+
+.series-card:hover .card-icon {
+  transform: scale(1.1);
+}
+
+.series-card[data-card="flutter"] .card-icon { color: var(--cyber-purple); }
+.series-card[data-card="security"] .card-icon { color: var(--cyber-pink); }
+
+.card-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.card-title {
+  font-family: 'Orbitron', 'LXGW WenKai TC', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--cyber-light);
+  margin-bottom: 0.75rem;
+  height: 2.5rem; /* 固定標題高度，避免單雙行標題導致下方內容位移 */
+  display: flex;
+  align-items: center;
+}
+
+.card-desc {
+  font-size: 0.875rem;
+  color: rgba(224, 230, 255, 0.6);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  min-height: 2.8em;  /* 約兩行文字高度 */
+  overflow: hidden;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.card-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: rgba(224, 230, 255, 0.5);
+}
+
+.tag-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--cyber-cyan);
+  border-radius: 50%;
+}
+
+.series-card[data-card="flutter"] .tag-dot { background: var(--cyber-purple); }
+.series-card[data-card="security"] .tag-dot { background: var(--cyber-pink); }
+
+.card-arrow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.75rem;
+  color: var(--cyber-cyan);
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.3s, transform 0.3s var(--ease-out-expo);
+}
+
+.series-card:hover .card-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.series-card[data-card="flutter"] .card-arrow { color: var(--cyber-purple); }
+.series-card[data-card="security"] .card-arrow { color: var(--cyber-pink); }
+
+.card-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+.card-hologram {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(0deg, rgba(0, 240, 255, 0.05), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.series-card:hover .card-hologram {
+  opacity: 1;
+}
+
+
+/* ===== 最新文章 ===== */
+.recent-section {
+  padding: 3rem 0;
+  opacity: 0;
+}
+
+.posts-container {
+  margin-bottom: 2rem;
+}
+
+.post-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.post-index {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--cyber-cyan);
+  opacity: 0.3;
+  min-width: 30px;
+}
+
+.post-link {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  text-decoration: none;
+  transition: transform 0.3s var(--ease-out-expo);
+}
+
+.post-link:hover {
+  transform: translateX(8px);
+}
+
+.post-info {
+  flex: 1;
+}
+
+.post-category {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--cyber-pink);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.post-title {
+  font-family: 'LXGW WenKai TC', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--cyber-light);
+  transition: color 0.3s;
+  line-height: 1.4;
+}
+
+.post-link:hover .post-title {
+  color: var(--cyber-cyan);
+}
+
+.post-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: rgba(224, 230, 255, 0.4);
+  white-space: nowrap;
+}
+
+.post-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--cyber-cyan), transparent);
+  opacity: 0.1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease-out-expo);
+}
+
+.post-item:hover .post-line {
+  transform: scaleX(1);
+}
+
+/* ===== 查看全部按鈕 ===== */
+.view-all-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 28px;
+  background: transparent;
+  border: 1px solid var(--cyber-cyan);
+  border-radius: 4px;
+  text-decoration: none;
+  overflow: hidden;
+  transition: all 0.4s var(--ease-out-expo);
+}
+
+.view-all-btn:hover {
+  background: rgba(0, 240, 255, 0.1);
+  box-shadow: var(--glow-cyan);
+  transform: translateY(-2px);
+}
+
+.btn-text {
+  font-family: 'Orbitron', 'LXGW WenKai TC', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--cyber-cyan);
+  letter-spacing: 0.05em;
+}
+
+.btn-icon {
+  display: flex;
+  color: var(--cyber-cyan);
+  transition: transform 0.3s var(--ease-out-expo);
+}
+
+.view-all-btn:hover .btn-icon {
+  transform: translateX(4px);
+}
+
+.btn-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.btn-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s var(--ease-out-expo);
+}
+
+.view-all-btn:hover .btn-glow {
+  transform: translateX(100%);
+}
+
+/* ===== 側邊裝飾 ===== */
+.side-decor {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.side-decor.left {
+  left: 20px;
+}
+
+.side-decor.right {
+  right: 20px;
+}
+
+.decor-line {
+  width: 2px;
+  height: 200px;
+  background: linear-gradient(180deg, transparent, var(--cyber-cyan), transparent);
+  margin: 0 auto 20px;
+}
+
+.decor-nodes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.decor-nodes span {
+  width: 8px;
+  height: 8px;
+  background: var(--cyber-cyan);
+  border-radius: 50%;
+  box-shadow: var(--glow-cyan);
+  animation: nodePulse 2s infinite;
+}
+
+.decor-nodes span:nth-child(2) { animation-delay: 0.5s; }
+.decor-nodes span:nth-child(3) { animation-delay: 1s; }
+.decor-nodes span:nth-child(4) { animation-delay: 1.5s; }
+
+@keyframes nodePulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.3); opacity: 1; }
+}
+
+.decor-bars {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.decor-bars span {
+  height: 3px;
+  background: var(--cyber-pink);
+  border-radius: 2px;
+  animation: barPulse 3s infinite;
+}
+
+.decor-bars span:nth-child(1) { width: 40px; animation-delay: 0s; }
+.decor-bars span:nth-child(2) { width: 60px; animation-delay: 0.3s; }
+.decor-bars span:nth-child(3) { width: 30px; animation-delay: 0.6s; }
+.decor-bars span:nth-child(4) { width: 50px; animation-delay: 0.9s; }
+.decor-bars span:nth-child(5) { width: 35px; animation-delay: 1.2s; }
+
+@keyframes barPulse {
+  0%, 100% { opacity: 0.3; transform: scaleX(1); }
+  50% { opacity: 0.8; transform: scaleX(1.1); }
+}
+
+/* ===== 滑鼠光暈 ===== */
+.cursor-glow {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, transparent 60%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+}
+
+/* ===== 響應式 ===== */
+@media (max-width: 1200px) {
+  .side-decor {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 3rem 0 4rem;
+  }
+  
+  .hero-title {
+    font-size: 1.75rem;
+  }
+  
+  .hero-stats {
+    gap: 1rem;
+  }
+  
+  .stat-number {
+    font-size: 1.75rem;
+  }
+  
+  .series-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .post-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .post-index {
+    display: none;
+  }
+  
+  .post-link {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ===== 滾動條 ===== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cyber-darker);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--cyber-gray);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cyber-cyan);
+}
+
+
+/* ===== Header 樣式 ===== */
+.cyber-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(5, 8, 22, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.cyber-header .header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.site-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-family: 'Orbitron', monospace;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.logo-bracket {
+  color: var(--cyber-cyan);
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+
+.site-logo:hover .logo-bracket {
+  opacity: 1;
+}
+
+.logo-text {
+  color: var(--cyber-light);
+  margin: 0 4px;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+.site-logo:hover .logo-text {
+  color: var(--cyber-cyan);
+  text-shadow: var(--glow-cyan);
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  padding: 8px 0;
+}
+
+.nav-text {
+  font-family: 'Orbitron', 'LXGW WenKai TC', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(224, 230, 255, 0.7);
+  letter-spacing: 0.05em;
+  transition: color 0.3s;
+}
+
+.nav-link:hover .nav-text {
+  color: var(--cyber-cyan);
+}
+
+.nav-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--cyber-cyan);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s var(--ease-out-expo);
+}
+
+.nav-link:hover .nav-line {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.header-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyber-cyan), transparent);
+  opacity: 0.3;
+}
+
+/* ===== Footer 樣式 ===== */
+.site-footer {
+  position: relative;
+  background: var(--cyber-darker);
+  border-top: 1px solid rgba(0, 240, 255, 0.1);
+  padding: 2rem 0;
+  margin-top: 4rem;
+}
+
+.site-footer .container {
+  text-align: center;
+}
+
+.site-footer p {
+  font-size: 0.875rem;
+  color: rgba(224, 230, 255, 0.4);
+  margin-bottom: 0.5rem;
+}
+
+.site-footer a {
+  color: var(--cyber-cyan);
+  text-decoration: none;
+  transition: text-shadow 0.3s;
+}
+
+.site-footer a:hover {
+  text-shadow: var(--glow-cyan);
+}
+
+/* ===== 調整主內容區 padding ===== */
+.site-main {
+  padding-top: 80px;
+}
+
+/* ===== 移動端 Header ===== */
+@media (max-width: 768px) {
+  .site-nav {
+    gap: 1rem;
+  }
+  
+  .nav-text {
+    font-size: 0.75rem;
+  }
+  
+  .site-logo {
+    font-size: 1rem;
+  }
+}

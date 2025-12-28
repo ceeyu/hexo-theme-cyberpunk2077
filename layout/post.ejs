@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="<%= config.language || 'zh-TW' %>">
+<%- partial('partial/head') %>
+<body class="post-page">
+  <%- partial('partial/header') %>
+  
+  <main class="site-main">
+    <div class="container">
+      <%- partial('partial/article', {post: page, index: false}) %>
+      
+      <!-- 上一篇/下一篇導航 -->
+      <nav class="post-nav">
+        <% if (page.prev) { %>
+          <a href="<%- url_for(page.prev.path) %>" class="prev">
+            ← <%= page.prev.title %>
+          </a>
+        <% } %>
+        <% if (page.next) { %>
+          <a href="<%- url_for(page.next.path) %>" class="next">
+            <%= page.next.title %> →
+          </a>
+        <% } %>
+      </nav>
+    </div>
+  </main>
+  
+  <%- partial('partial/footer') %>
+</body>
+</html>

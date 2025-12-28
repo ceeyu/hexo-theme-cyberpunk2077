@@ -1,0 +1,125 @@
+<footer class="site-footer">
+  <div class="container">
+    <p>&copy; <%= new Date().getFullYear() %> <%= config.author || config.title %></p>
+    <p>
+      Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> 
+      | Theme: Fast Theme
+    </p>
+    <% if (theme.social) { %>
+    <div class="social-links">
+      <% for (let name in theme.social) { %>
+        <a href="<%= theme.social[name] %>" target="_blank" rel="noopener"><%= name %></a>
+      <% } %>
+    </div>
+    <% } %>
+  </div>
+</footer>
+
+<!-- Prism.js 程式碼高亮 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<!-- 預載入常用語言 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-dart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+
+<!-- GSAP 動畫庫 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<!-- 自定義腳本 -->
+<script defer src="<%- url_for('/js/main.js') %>"></script>
+<script defer src="<%- url_for('/js/gsap-animations.js') %>"></script>
+<script defer src="<%- url_for('/js/cyberpunk.js') %>"></script>
+
+<!-- 初始化程式碼高亮 -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hexo 使用 figure.highlight 結構，需要轉換為 Prism 可識別的格式
+    document.querySelectorAll('figure.highlight').forEach(function(figure) {
+      const codeTable = figure.querySelector('table');
+      if (!codeTable) return;
+      
+      const codeCell = codeTable.querySelector('td.code pre');
+      if (!codeCell) return;
+      
+      // 獲取程式碼內容
+      const lines = codeCell.querySelectorAll('.line');
+      let codeContent = '';
+      lines.forEach(function(line) {
+        codeContent += line.textContent + '\n';
+      });
+      
+      // 檢測語言
+      let lang = 'plaintext';
+      const figureClass = figure.className;
+      
+      // 從 figure class 獲取語言
+      const langMatch = figureClass.match(/highlight\s+(\w+)/);
+      if (langMatch && langMatch[1] !== 'plaintext') {
+        lang = langMatch[1];
+      }
+      
+      // 如果是 plaintext，嘗試自動檢測
+      if (lang === 'plaintext') {
+        if (codeContent.includes('#include') || codeContent.includes('int main') || 
+            codeContent.includes('cout') || codeContent.includes('cin') ||
+            codeContent.includes('iostream') || codeContent.includes('using namespace')) {
+          lang = 'cpp';
+        } else if (codeContent.includes('def ') || codeContent.includes('import ') || codeContent.includes('print(')) {
+          lang = 'python';
+        } else if (codeContent.includes('function') || codeContent.includes('const ') || 
+                   codeContent.includes('let ') || codeContent.includes('=>')) {
+          lang = 'javascript';
+        } else if (codeContent.includes('public class') || codeContent.includes('public static void')) {
+          lang = 'java';
+        } else if (codeContent.includes('Widget') || codeContent.includes('Flutter') || codeContent.includes('@override')) {
+          lang = 'dart';
+        }
+      }
+      
+      // 創建新的 pre > code 結構
+      const pre = document.createElement('pre');
+      pre.className = 'line-numbers language-' + lang;
+      
+      const code = document.createElement('code');
+      code.className = 'language-' + lang;
+      code.textContent = codeContent.trim();
+      
+      pre.appendChild(code);
+      
+      // 替換原本的 figure
+      figure.parentNode.replaceChild(pre, figure);
+    });
+    
+    // 也處理標準的 pre > code
+    document.querySelectorAll('pre code:not([class*="language-"])').forEach(function(block) {
+      const content = block.textContent;
+      let lang = 'plaintext';
+      
+      if (content.includes('#include') || content.includes('int main')) {
+        lang = 'cpp';
+      } else if (content.includes('def ') || content.includes('import ')) {
+        lang = 'python';
+      } else if (content.includes('function') || content.includes('const ')) {
+        lang = 'javascript';
+      }
+      
+      block.classList.add('language-' + lang);
+      block.parentElement.classList.add('language-' + lang, 'line-numbers');
+    });
+    
+    // 執行 Prism 高亮
+    if (typeof Prism !== 'undefined') {
+      Prism.highlightAll();
+    }
+  });
+</script>

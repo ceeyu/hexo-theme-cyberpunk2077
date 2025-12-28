@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="<%= config.language || 'zh-TW' %>">
+<%- partial('partial/head') %>
+<body class="cyber-body">
+  <!-- 載入遮罩 -->
+  <div class="page-loader">
+    <div class="loader-content">
+      <div class="loader-glitch" data-text="LOADING">LOADING</div>
+      <div class="loader-bar">
+        <div class="loader-progress"></div>
+      </div>
+      <div class="loader-percent">0%</div>
+    </div>
+  </div>
+
+  <!-- 背景效果層 -->
+  <div class="cyber-bg">
+    <div class="cyber-grid"></div>
+    <div class="cyber-scanline"></div>
+    <canvas id="particle-canvas"></canvas>
+  </div>
+
+  <%- partial('partial/header') %>
+  
+  <main class="site-main">
+    <div class="container">
+      <!-- Hero 區域 - Cyberpunk 2077 風格動畫 -->
+      <section class="hero-section" data-animate="hero">
+        <!-- Cyberpunk 2077 風格 Logo -->
+        <div id="cyber-logo" class="cyber-logo">
+          <!-- 主標題: iThome -->
+          <div class="logo-main">
+            <!-- 青色層 (主層) -->
+            <div class="logo-layer logo-cyan">
+              <span class="logo-char">i</span>
+              <span class="logo-char">T</span>
+              <span class="logo-char">h</span>
+              <span class="logo-char">o</span>
+              <span class="logo-char">m</span>
+              <span class="logo-char">e</span>
+            </div>
+            <!-- 粉色層 (Glitch 層) -->
+            <div class="logo-layer logo-pink" aria-hidden="true">
+              <span class="logo-char">i</span>
+              <span class="logo-char">T</span>
+              <span class="logo-char">h</span>
+              <span class="logo-char">o</span>
+              <span class="logo-char">m</span>
+              <span class="logo-char">e</span>
+            </div>
+          </div>
+          
+          <!-- 副標題: Technical Article -->
+          <div class="logo-sub">
+            <div class="sub-bg"></div>
+            <div class="sub-text sub-text-en">
+              <span class="sub-char">T</span>
+              <span class="sub-char">e</span>
+              <span class="sub-char">c</span>
+              <span class="sub-char">h</span>
+              <span class="sub-char">n</span>
+              <span class="sub-char">i</span>
+              <span class="sub-char">c</span>
+              <span class="sub-char">a</span>
+              <span class="sub-char">l</span>
+              <span class="sub-char">&nbsp;</span>
+              <span class="sub-char">A</span>
+              <span class="sub-char">r</span>
+              <span class="sub-char">t</span>
+              <span class="sub-char">i</span>
+              <span class="sub-char">c</span>
+              <span class="sub-char">l</span>
+              <span class="sub-char">e</span>
+            </div>
+          </div>
+          
+          <!-- 裝飾元素 -->
+          <div class="logo-decor">
+            <span class="decor-line left"></span>
+            <span class="decor-line right"></span>
+            <span class="decor-dot dot-1"></span>
+            <span class="decor-dot dot-2"></span>
+          </div>
+        </div>
+        
+        <!-- 描述文字 -->
+        <p class="hero-desc">
+          <span class="desc-bracket">[</span>
+          <span class="desc-text">三個系列，90 篇技術文章，從基礎到進階</span>
+          <span class="desc-bracket">]</span>
+        </p>
+        
+        <!-- 統計數據 -->
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number" data-count="3">0</span>
+            <span class="stat-label">SERIES</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-number" data-count="90">0</span>
+            <span class="stat-label">ARTICLES</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-number" data-count="2024">0</span>
+            <span class="stat-label">YEAR</span>
+          </div>
+        </div>
+      </section>
+      
+      <!-- 系列分類卡片 -->
+      <section class="series-section" data-animate="cards">
+        <div class="section-header">
+          <div class="section-line"></div>
+          <h2 class="section-title">
+            <span class="title-icon">◆</span>
+            選擇系列
+            <span class="title-icon">◆</span>
+          </h2>
+          <div class="section-line"></div>
+        </div>
+        
+        <div class="series-grid">
+          <a href="<%- url_for('/categories/C-基礎教學/') %>" class="series-card" data-card="cpp">
+            <div class="card-glow"></div>
+            <div class="card-border"></div>
+            <div class="card-content">
+              <div class="card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="2" y="3" width="20" height="14" rx="2"/>
+                  <path d="M8 21h8M12 17v4"/>
+                  <path d="M7 8l3 3-3 3M12 14h4"/>
+                </svg>
+              </div>
+              <h3 class="card-title">C++ 基礎教學</h3>
+              <p class="card-desc">從零開始學習 C++ 程式設計，涵蓋基礎語法、資料結構與演算法</p>
+              <div class="card-footer">
+                <div class="card-tag">
+                  <span class="tag-dot"></span>
+                  30 篇文章
+                </div>
+                <div class="card-arrow">
+                  <span>進入</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="card-hologram"></div>
+          </a>
+          
+          <a href="<%- url_for('/categories/Flutter-30天/') %>" class="series-card" data-card="flutter">
+            <div class="card-glow"></div>
+            <div class="card-border"></div>
+            <div class="card-content">
+              <div class="card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="5" y="2" width="14" height="20" rx="2"/>
+                  <path d="M12 18h.01"/>
+                  <path d="M9 6h6M9 10h6"/>
+                </svg>
+              </div>
+              <h3 class="card-title">Flutter 30天</h3>
+              <p class="card-desc">使用 Flutter 與 Dart 開發跨平台應用程式</p>
+              <div class="card-footer">
+                <div class="card-tag">
+                  <span class="tag-dot"></span>
+                  30 篇文章
+                </div>
+                <div class="card-arrow">
+                  <span>進入</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="card-hologram"></div>
+          </a>
+          
+          <a href="<%- url_for('/categories/雲端資安/') %>" class="series-card" data-card="security">
+            <div class="card-glow"></div>
+            <div class="card-border"></div>
+            <div class="card-content">
+              <div class="card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <path d="M9 12l2 2 4-4"/>
+                </svg>
+              </div>
+              <h3 class="card-title">雲端資安</h3>
+              <p class="card-desc">雲端安全、滲透測試與資安防護實戰</p>
+              <div class="card-footer">
+                <div class="card-tag">
+                  <span class="tag-dot"></span>
+                  30 篇文章
+                </div>
+                <div class="card-arrow">
+                  <span>進入</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="card-hologram"></div>
+          </a>
+        </div>
+      </section>
+      
+      <!-- 最新文章 -->
+      <section class="recent-section" data-animate="posts">
+        <div class="section-header">
+          <div class="section-line"></div>
+          <h2 class="section-title">
+            <span class="title-icon">◆</span>
+            最新文章
+            <span class="title-icon">◆</span>
+          </h2>
+          <div class="section-line"></div>
+        </div>
+        
+        <div class="posts-container">
+          <% site.posts.sort('date', -1).slice(0, 5).forEach(function(post, index) { %>
+            <article class="post-item" data-index="<%= index %>">
+              <div class="post-index"><%= String(index + 1).padStart(2, '0') %></div>
+              <a href="<%- url_for(post.path) %>" class="post-link">
+                <div class="post-info">
+                  <span class="post-category">
+                    <% if (post.categories && post.categories.length) { %>
+                      <%= post.categories.toArray()[0].name %>
+                    <% } %>
+                  </span>
+                  <h3 class="post-title"><%= post.title %></h3>
+                </div>
+                <time class="post-date"><%= post.date.format('YYYY.MM.DD') %></time>
+              </a>
+              <div class="post-line"></div>
+            </article>
+          <% }); %>
+        </div>
+        
+        <a href="<%- url_for('/archives/') %>" class="view-all-btn">
+          <span class="btn-text">查看所有文章</span>
+          <span class="btn-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </span>
+          <div class="btn-glow"></div>
+        </a>
+      </section>
+    </div>
+  </main>
+  
+  <!-- 側邊裝飾 -->
+  <div class="side-decor left">
+    <div class="decor-line"></div>
+    <div class="decor-nodes">
+      <span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+  <div class="side-decor right">
+    <div class="decor-bars">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+  
+  <%- partial('partial/footer') %>
+</body>
+</html>

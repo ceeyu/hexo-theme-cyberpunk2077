@@ -1,0 +1,45 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><% if (page.title) { %><%= page.title %> | <% } %><%= config.title %></title>
+  
+  <!-- SEO -->
+  <meta name="description" content="<%= page.description || config.description || '' %>">
+  <meta name="keywords" content="<%= page.tags ? page.tags.map(tag => tag.name).join(',') : '' %>">
+  
+  <!-- Google Fonts - 字體 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- LXGW WenKai TC (霞鶩文楷) - 優雅手寫風格中文字體 -->
+  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@300;400;700&display=swap" rel="stylesheet">
+  <!-- Inter - 英文字體 -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- JetBrains Mono - 程式碼字體 -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Orbitron - 賽博龐克風格字體 -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <!-- Audiowide - Cyberpunk 風格字體 -->
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+  <!-- Teko - 斜體科幻風格 -->
+  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Russo One - 粗體科幻風格 -->
+  <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+  
+  <!-- Critical CSS 內聯 -->
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'LXGW WenKai TC','Inter',-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.8;color:#1e293b;background:#f8fafc}
+    .container{max-width:900px;margin:0 auto;padding:20px}
+    a{color:#6366f1;text-decoration:none}
+  </style>
+  
+  <!-- Prism.js 程式碼高亮 - Tomorrow Night 主題 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css">
+  
+  <!-- 完整樣式表 -->
+  <link rel="stylesheet" href="<%- url_for('/css/style.css') %>">
+  <link rel="stylesheet" href="<%- url_for('/css/gsap-styles.css') %>">
+  <link rel="stylesheet" href="<%- url_for('/css/embeds.css') %>">
+  <link rel="stylesheet" href="<%- url_for('/css/cyberpunk.css') %>">
+</head>

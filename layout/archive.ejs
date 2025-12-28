@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="<%= config.language || 'zh-TW' %>">
+<%- partial('partial/head') %>
+<body>
+  <%- partial('partial/header') %>
+  
+  <main class="site-main">
+    <div class="container">
+      <h1 class="archive-title animate-fade-in-up">文章總覽</h1>
+      
+      <% if (page.posts.length) { %>
+        <% var last; %>
+        <% page.posts.each(function(post) { %>
+          <% var year = post.date.year(); %>
+          <% if (last != year) { %>
+            <% if (last != null) { %></div><% } %>
+            <% last = year; %>
+            <div class="archive-year">
+              <h2 class="year-title animate-fade-in-left"><%= year %></h2>
+          <% } %>
+          <article class="archive-post scroll-animate">
+            <time datetime="<%= post.date.toISOString() %>">
+              <%= post.date.format('MM-DD') %>
+            </time>
+            <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+          </article>
+        <% }); %>
+        </div>
+      <% } else { %>
+        <p>還沒有文章</p>
+      <% } %>
+      
+      <!-- 分頁導航 -->
+      <% if (page.total > 1) { %>
+        <nav class="pagination">
+          <%- paginator({
+            prev_text: '← 上一頁',
+            next_text: '下一頁 →',
+            mid_size: 2,
+            end_size: 1
+          }) %>
+        </nav>
+      <% } %>
+    </div>
+  </main>
+  
+  <%- partial('partial/footer') %>
+</body>
+</html>

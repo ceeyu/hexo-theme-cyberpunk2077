@@ -1,0 +1,33 @@
+# Cyberpunk2077 Theme 配置
+
+# 網站信息
+menu:
+  首頁: /
+  文章總覽: /archives
+  關於: /about
+
+# 社交連結
+social:
+  GitHub: https://github.com/ceeyu
+  iThome: https://ithelp.ithome.com.tw/users/20151593
+
+# 性能優化
+performance:
+  lazyload: true        # 圖片延遲加載
+  minify: true          # 壓縮 HTML
+  preload: true         # 預加載關鍵資源
+
+# 代碼高亮
+highlight:
+  theme: github-light   # 或 github-dark
+  line_number: true
+
+# 文章設置
+post:
+  show_updated: true    # 顯示更新時間
+  show_word_count: true # 顯示字數統計
+  show_reading_time: true # 顯示閱讀時間
+
+# 評論系統（可選）
+comments:
+  enable: false
