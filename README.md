@@ -24,7 +24,7 @@
 
 | Home Page | Article Page |
 |-----------|--------------|
-| ![Home](screenshots/home.png) | ![Article](screenshots/article.png) |
+| <img width="2552" height="978" alt="image" src="https://github.com/user-attachments/assets/e6b5d67a-83c7-4b11-b091-c036a13332c0" /> |<img width="1458" height="1193" alt="image" src="https://github.com/user-attachments/assets/70bac38e-ee9d-4314-bdad-3fb601671a75" />|
 
 ### 🚀 Installation
 
